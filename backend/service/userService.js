@@ -2,7 +2,7 @@ const userDao = require('../dao/userDao');
 
 async function getUser(userId){
     const userData = await userDao.selectUserByUserId(userId);
-    if(userData.length == 0){
+    if(userData.length == 0){ // 내가 찾는 user_id 가 없으면
         return -1;
     }
     else{
