@@ -53,11 +53,11 @@ async function postIngredient(req, res){
             await ingredientService.postIngredientIfNotExist(req.body.ingredient);
             
             // user_has_ingredients 테이블에 유저가 가진 재료 정보를 저장한다.
-            const cnt = await userService.postIngredients(req.body.userId, req.body.ingredient);
+            const userIngredient = await userService.postIngredients(req.body.userId, req.body.ingredient);
             
-            if (cnt != req.body.ingredient.length) {
-                console.log('db error');
-                errResponse(res, returnCode.DB_ERROR, 'DB error');
+            if (userIngredient.length == 0) {
+                console.log('이미 있는 재료들을 추가했습니다');
+                response(res, returnCode.OK, '이미 있는 재료를 추가');
             }
             else {
                 response(res, returnCode.OK, '재료 넣기 성공');
