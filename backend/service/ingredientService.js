@@ -13,6 +13,30 @@ async function postIngredientIfNotExist(ingredients){
     }
 }
 
+// ingredients 재료들의 배열
+async function insertIngredient(ingredients){
+    //console.log(ingredients);
+    var cnt; //실제 넣어진 재료의 수
+
+    for(var i=0; i<ingredients.length; i++){
+        const ingredientList = ingredients[i];
+        var name = '';
+        ingredientList.forEach(element => {
+            name += element;
+            name += ' ';
+        });
+        //console.log(name);
+        const match = await ingredientDao.selectIngredient(name.trim());
+        //console.log(match.length);
+        if(match.length == 0){ // Ingredients 테이블에 없으면
+            await ingredientDao.insertIngredient(name);
+            cnt++;
+        }
+    }
+    return cnt;
+}
+
 module.exports = {
-    postIngredientIfNotExist
+    postIngredientIfNotExist,
+    insertIngredient
 }

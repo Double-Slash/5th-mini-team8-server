@@ -1,4 +1,6 @@
 const request = require("request");
+const ingredientService = require('../service/ingredientService');
+const recipeService = require('../service/recipeService');
 
 function p(url){
     return new Promise((resolve, reject) => {
@@ -61,7 +63,7 @@ async function getApi(url){
     myobj.metering = metering;
 
     // Ingredients 테이블에 재료를 다 넣기.
-    const addin = await ingredient.insertIngredient(plain_ingredients);
+    const addin = await ingredientService.insertIngredient(plain_ingredients);
     //console.log(splited_ingredients);
 
     recipe += obj.COOKRCP01.row[0].MANUAL01
@@ -110,11 +112,13 @@ async function getApi(url){
     //console.log(myobj);
 
     // Recipe 테이블에 넣기.
-    const insertedRecipe = ingredient.insertRecipe(myobj);
+    const insertedRecipe = recipeService.insertRecipe(myobj);
     //console.log(insertedRecipe); 
 
-    const insertedCnt = await ingredient.insertRecipeforFood(myobj);
-    console.log(insertedCnt);
+    const insertedCnt = await recipeService.insertRecipeforFood(myobj);
+    //console.log(insertedCnt);
 }
+
+getApi("http://openapi.foodsafetykorea.go.kr/api/769c3e791aa24789b0ef/COOKRCP01/json/1/2");
 
 module.exports = getApi;
