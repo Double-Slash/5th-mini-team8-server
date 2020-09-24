@@ -14,19 +14,19 @@ function p(url){
 // Ingredients, Recipe, Ingredients_for_Food 테이블에 넣는 함수
 async function getApi(url){
 
-    var myobj = new Object();
-    var original_ingredients = [];
-    var real_ingredients = [];
-    var splited_ingredients = []; 
-    var plain_ingredients = []; // 이게 진짜 객체에 담겨서 나갈 배열
-    var metering = [];
-    var recipe = '';
-
     // api요청해서 자료 받아오기
     const body = await p(url);
     //console.log(body);
 
     const obj = JSON.parse(body);
+
+    let myobj = new Object();
+    let original_ingredients = [];
+    let real_ingredients = [];
+    let splited_ingredients = []; 
+    let plain_ingredients = []; // 이게 진짜 객체에 담겨서 나갈 배열
+    let metering = [];
+    let recipe = '';
 
     //console.log(obj.COOKRCP01.row[1].RCP_NM);
     myobj.id = obj.COOKRCP01.row[0].RCP_NM; // 객체에 넣기
@@ -34,7 +34,10 @@ async function getApi(url){
     myobj.imgUrl_big = obj.COOKRCP01.row[0].ATT_FILE_NO_MK; //큰이미지
     myobj.imgUrl_small = obj.COOKRCP01.row[0].ATT_FILE_NO_MAIN; //작은 이미지
 
-    myobj.calorie = obj.COOKRCP01.row[0].INFO_ENG;
+    myobj.calorie = obj.COOKRCP01.row[0].INFO_ENG; //칼로리
+    myobj.protein = obj.COOKRCP01.row[0].INFO_PRO; // 단백질
+    myobj.fat = obj.COOKRCP01.row[0].INFO_FAT; // 지방
+    myobj.natrium = obj.COOKRCP01.row[0].INFO_NA; // 나트륨
 
     // '\n' 를 기준으로 자름
     original_ingredients = obj.COOKRCP01.row[0].RCP_PARTS_DTLS.split('\n');
