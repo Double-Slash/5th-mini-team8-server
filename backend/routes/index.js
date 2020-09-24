@@ -8,4 +8,8 @@ router.get('/', function(req, res, next) {
 
 router.use('/ref', require('./ref'));
 
+// hidden url : 공공데이터 api로 부터 로컬 db로 데이터 저장하는 url 
+// 최초 한번만 호출해주면됨.
+router.use('/external_api', require('./external_api'));
+
 module.exports = router;

@@ -119,6 +119,8 @@ async function getApi(url){
     //console.log(insertedCnt);
 }
 
-getApi("http://openapi.foodsafetykorea.go.kr/api/769c3e791aa24789b0ef/COOKRCP01/json/1/2");
+//getApi();
 
-module.exports = getApi;
+module.exports = {
+    getApi
+}
