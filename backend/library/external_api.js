@@ -18,108 +18,114 @@ async function getApi(url){
     const body = await p(url);
     //console.log(body);
 
-    const obj = JSON.parse(body);
+    const bodyData = JSON.parse(body);
 
-    let myobj = new Object();
-    let original_ingredients = [];
-    let real_ingredients = [];
-    let splited_ingredients = []; 
-    let plain_ingredients = []; // 이게 진짜 객체에 담겨서 나갈 배열
-    let metering = [];
-    let recipe = '';
+    for (var i = 0; i < bodyData.COOKRCP01.row.length; i++) {
 
-    //console.log(obj.COOKRCP01.row[1].RCP_NM);
-    myobj.id = obj.COOKRCP01.row[0].RCP_NM; // 객체에 넣기
+        const obj = bodyData.COOKRCP01.row[i]
 
-    myobj.imgUrl_big = obj.COOKRCP01.row[0].ATT_FILE_NO_MK; //큰이미지
-    myobj.imgUrl_small = obj.COOKRCP01.row[0].ATT_FILE_NO_MAIN; //작은 이미지
+        let myobj = new Object();
+        let original_ingredients = [];
+        let real_ingredients = [];
+        let splited_ingredients = [];
+        let plain_ingredients = []; // 이게 진짜 객체에 담겨서 나갈 배열
+        let metering = [];
+        let recipe = '';
 
-    myobj.calorie = obj.COOKRCP01.row[0].INFO_ENG; //칼로리
-    myobj.protein = obj.COOKRCP01.row[0].INFO_PRO; // 단백질
-    myobj.fat = obj.COOKRCP01.row[0].INFO_FAT; // 지방
-    myobj.natrium = obj.COOKRCP01.row[0].INFO_NA; // 나트륨
+        //console.log(obj.COOKRCP01.row[1].RCP_NM);
+        myobj.id = obj.RCP_NM; // 객체에 넣기
 
-    // '\n' 를 기준으로 자름
-    original_ingredients = obj.COOKRCP01.row[0].RCP_PARTS_DTLS.split('\n');
-    // 채소준비등 실제 재료가 아닌 소제목? 들은 빼고 ㄹㅇ 재료만 배열에 담음.
-    original_ingredients.forEach(element => {
-        if (original_ingredients.indexOf(element) % 2 != 0) {
-            real_ingredients.push(element);
-        }
-    });
-    // 재료들로 다 잘라서 배열로 만듬.
-    real_ingredients.forEach(element => {
-        const m_arr = element.split(',');
-        m_arr.forEach(ele => {
-            splited_ingredients.push(ele.trim());
+        myobj.imgUrl_big = obj.ATT_FILE_NO_MK; //큰이미지
+        myobj.imgUrl_small = obj.ATT_FILE_NO_MAIN; //작은 이미지
+
+        myobj.calorie = obj.INFO_ENG; //칼로리
+        myobj.protein = obj.INFO_PRO; // 단백질
+        myobj.fat = obj.INFO_FAT; // 지방
+        myobj.natrium = obj.INFO_NA; // 나트륨
+
+        // '\n' 를 기준으로 자름
+        original_ingredients = obj.RCP_PARTS_DTLS.split('\n');
+        // 채소준비등 실제 재료가 아닌 소제목? 들은 빼고 ㄹㅇ 재료만 배열에 담음.
+        original_ingredients.forEach(element => {
+            if (original_ingredients.indexOf(element) % 2 != 0) {
+                real_ingredients.push(element);
+            }
+        });
+        // 재료들로 다 잘라서 배열로 만듬.
+        real_ingredients.forEach(element => {
+            const m_arr = element.split(',');
+            m_arr.forEach(ele => {
+                splited_ingredients.push(ele.trim());
+            })
+        });
+        //myobj.ingredients = splited_ingredients;
+
+        splited_ingredients.forEach(ele => {
+            plain_ingredients.push(ele.split(' ').slice(0, -1));
+            metering.push(ele.split(' ')[ele.split(' ').length - 1]);
         })
-    });
-    //myobj.ingredients = splited_ingredients;
+        //console.log(plain_ingredients);
 
-    splited_ingredients.forEach(ele => {
-        plain_ingredients.push(ele.split(' ').slice(0,-1) );
-        metering.push(ele.split(' ')[ele.split(' ').length-1]);
-    })
-    //console.log(plain_ingredients);
+        myobj.plain_ingredients = plain_ingredients;
+        myobj.metering = metering;
 
-    myobj.plain_ingredients = plain_ingredients;
-    myobj.metering = metering;
+        // Ingredients 테이블에 재료를 다 넣기.
+        const addin = await ingredientService.insertIngredient(plain_ingredients);
+        //console.log(splited_ingredients);
 
-    // Ingredients 테이블에 재료를 다 넣기.
-    const addin = await ingredientService.insertIngredient(plain_ingredients);
-    //console.log(splited_ingredients);
+        recipe += obj.MANUAL01
+        recipe += '\n'
+        recipe += obj.MANUAL02
+        recipe += '\n'
+        recipe += obj.MANUAL03
+        recipe += '\n'
+        recipe += obj.MANUAL04
+        recipe += '\n'
+        recipe += obj.MANUAL05
+        recipe += '\n'
+        recipe += obj.MANUAL06
+        recipe += '\n'
+        recipe += obj.MANUAL07
+        recipe += '\n'
+        recipe += obj.MANUAL08
+        recipe += '\n'
+        recipe += obj.MANUAL09
+        recipe += '\n'
+        recipe += obj.MANUAL10
+        recipe += '\n'
+        recipe += obj.MANUAL11
+        recipe += '\n'
+        recipe += obj.MANUAL12
+        recipe += '\n'
+        recipe += obj.MANUAL13
+        recipe += '\n'
+        recipe += obj.MANUAL14
+        recipe += '\n'
+        recipe += obj.MANUAL15
+        recipe += '\n'
+        recipe += obj.MANUAL16
+        recipe += '\n'
+        recipe += obj.MANUAL17
+        recipe += '\n'
+        recipe += obj.MANUAL18
+        recipe += '\n'
+        recipe += obj.MANUAL19
+        recipe += '\n'
+        recipe += obj.MANUAL20
+        recipe += '\n'
 
-    recipe += obj.COOKRCP01.row[0].MANUAL01
-    recipe += '\n'
-    recipe += obj.COOKRCP01.row[0].MANUAL02
-    recipe += '\n'
-    recipe += obj.COOKRCP01.row[0].MANUAL03
-    recipe += '\n'
-    recipe += obj.COOKRCP01.row[0].MANUAL04
-    recipe += '\n'
-    recipe += obj.COOKRCP01.row[0].MANUAL05
-    recipe += '\n'
-    recipe += obj.COOKRCP01.row[0].MANUAL06
-    recipe += '\n'
-    recipe += obj.COOKRCP01.row[0].MANUAL07
-    recipe += '\n'
-    recipe += obj.COOKRCP01.row[0].MANUAL08
-    recipe += '\n'
-    recipe += obj.COOKRCP01.row[0].MANUAL09
-    recipe += '\n'
-    recipe += obj.COOKRCP01.row[0].MANUAL10
-    recipe += '\n'
-    recipe += obj.COOKRCP01.row[0].MANUAL11
-    recipe += '\n'
-    recipe += obj.COOKRCP01.row[0].MANUAL12
-    recipe += '\n'
-    recipe += obj.COOKRCP01.row[0].MANUAL13
-    recipe += '\n'
-    recipe += obj.COOKRCP01.row[0].MANUAL14
-    recipe += '\n'
-    recipe += obj.COOKRCP01.row[0].MANUAL15
-    recipe += '\n'
-    recipe += obj.COOKRCP01.row[0].MANUAL16
-    recipe += '\n'
-    recipe += obj.COOKRCP01.row[0].MANUAL17
-    recipe += '\n'
-    recipe += obj.COOKRCP01.row[0].MANUAL18
-    recipe += '\n'
-    recipe += obj.COOKRCP01.row[0].MANUAL19
-    recipe += '\n'
-    recipe += obj.COOKRCP01.row[0].MANUAL20
-    recipe += '\n'
+        myobj.recipe = recipe;
 
-    myobj.recipe = recipe;
+        //console.log(myobj);
 
-    //console.log(myobj);
+        // Recipe 테이블에 넣기.
+        const insertedRecipe = await recipeService.insertRecipe(myobj);
+        //console.log(insertedRecipe); 
 
-    // Recipe 테이블에 넣기.
-    const insertedRecipe = recipeService.insertRecipe(myobj);
-    //console.log(insertedRecipe); 
+        const insertedCnt = await recipeService.insertRecipeforFood(myobj);
+        //console.log(insertedCnt);
 
-    const insertedCnt = await recipeService.insertRecipeforFood(myobj);
-    //console.log(insertedCnt);
+    }
 }
 
 //getApi();

@@ -26,6 +26,10 @@ async function insertIngredient(ingredients){
             name += ' ';
         });
         //console.log(name);
+        // 공백 처리
+        if(name == ''){
+            continue;
+        }
         const match = await ingredientDao.selectIngredient(name.trim());
         //console.log(match.length);
         if(match.length == 0){ // Ingredients 테이블에 없으면

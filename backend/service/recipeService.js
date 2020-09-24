@@ -27,9 +27,12 @@ async function insertRecipeforFood(recipeData){
             ingre += element;
             ingre += ' ';
         });
+        if(ingre.trim() == ''){
+            continue;
+        }
         ingredients.push(ingre.trim());
     }
-    //console.log(metering);
+    //console.log(ingredients);
 
     var cnt = 0;
     for(i=0; i<ingredients.length; i++){
