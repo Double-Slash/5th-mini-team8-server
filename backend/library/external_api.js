@@ -43,6 +43,8 @@ async function getApi(url){
         myobj.fat = obj.INFO_FAT; // 지방
         myobj.natrium = obj.INFO_NA; // 나트륨
 
+        //console.log(obj.RCP_PARTS_DTLS);
+
         // '\n' 를 기준으로 자름
         original_ingredients = obj.RCP_PARTS_DTLS.split('\n');
         // 채소준비등 실제 재료가 아닌 소제목? 들은 빼고 ㄹㅇ 재료만 배열에 담음.
@@ -55,14 +57,39 @@ async function getApi(url){
         real_ingredients.forEach(element => {
             const m_arr = element.split(',');
             m_arr.forEach(ele => {
-                splited_ingredients.push(ele.trim());
+                if(ele.indexOf('.') != -1){
+                    const tmp = ele.split('.');
+                    tmp.forEach( e => {
+                        splited_ingredients.push(e.trim());
+                    });
+                } else {
+                    splited_ingredients.push(ele.trim());
+                }
+                
             })
         });
         //myobj.ingredients = splited_ingredients;
+        console.log(splited_ingredients);
 
         splited_ingredients.forEach(ele => {
-            plain_ingredients.push(ele.split(' ').slice(0, -1));
-            metering.push(ele.split(' ')[ele.split(' ').length - 1]);
+            const arr = ele.split(' ');
+            //console.log(arr);
+            let my_arr = [];
+            let flag = 0;
+            for(var i=0; i<arr.length-1; i++){
+                if( (arr[i].indexOf('(') != -1 && arr[i].indexOf(')') == -1) &&
+                (arr[i+1].indexOf(')') != -1 && arr[i+1].indexOf('(') == -1) ){
+                    my_arr.push(arr[i].concat(arr[i+1]));
+                    flag = 1;
+                } else{
+                    my_arr.push(arr[i]);
+                }
+            }
+            //console.log(my_arr);
+            if(flag == 0) my_arr.push(arr[i]);
+
+            plain_ingredients.push(my_arr.slice(0, -1));
+            metering.push(my_arr[my_arr.length - 1]);
         })
         //console.log(plain_ingredients);
 

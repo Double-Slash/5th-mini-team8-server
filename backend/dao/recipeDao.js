@@ -6,8 +6,8 @@ async function insertRecipe(recipeData, recipeText){
 }
 
 async function insertRecipeforFood(r_name, i_name, metering){
-    const insertQuery = `INSERT INTO Ingredients_for_Food(recipe_name, ingredients_name, metering) VALUES (?,?,?)`;
-    return await mysql.query(insertQuery, [r_name, i_name, metering]);
+    const insertQuery = `INSERT INTO Ingredients_for_Food(recipe_name, ingredients_name, metering) VALUES (?,?,?) ON DUPLICATE KEY UPDATE recipe_name = ?, ingredients_name = ?, metering = ?`;
+    return await mysql.query(insertQuery, [r_name, i_name, metering,r_name, i_name, metering]);
 }
 
 module.exports = {

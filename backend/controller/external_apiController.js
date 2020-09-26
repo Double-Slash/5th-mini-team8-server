@@ -5,7 +5,7 @@ const ex_api_lib = require('../library/external_api');
 
 async function api_to_db(req, res){
     try{
-        await ex_api_lib.getApi("http://openapi.foodsafetykorea.go.kr/api/769c3e791aa24789b0ef/COOKRCP01/json/0/5");
+        await ex_api_lib.getApi("http://openapi.foodsafetykorea.go.kr/api/769c3e791aa24789b0ef/COOKRCP01/json/0/100");
         response(res, returnCode.OK, 'api로부터 디비 추가 성공');
     } catch(error){
         console.log(error.message);
