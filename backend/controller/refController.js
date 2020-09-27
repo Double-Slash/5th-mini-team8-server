@@ -70,7 +70,17 @@ async function postIngredient(req, res){
     
 }
 
+async function getRecipeList(req, res){
+    try{
+
+    } catch(error){
+        console.log(error.message);
+        errResponse(res, returnCode.INTERNAL_SERVER_ERROR, '서버 오류');
+    }
+}
+
 module.exports = {
     getref,
-    postIngredient
+    postIngredient,
+    getRecipeList
 }
