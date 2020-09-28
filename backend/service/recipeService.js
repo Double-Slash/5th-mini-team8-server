@@ -61,12 +61,15 @@ async function getRecipeList(userId){
             }
             else {
                 const deficient_count = recipeList[i].total - recipeList[i].my_count;
+                const percentage = (recipeList[i].my_count / recipeList[i].total) * 100;
                 cantMake.push({
                     "recipe_name" : recipeList[i].recipe_name,
-                    "deficient_count" : deficient_count // 부족한 재료 수
+                    "deficient_count" : deficient_count, // 부족한 재료 수
+                    "percentage" : Math.round(percentage) // 있는 재료의 퍼센트
                 });
             }
         }
+        console.log(cantMake);
         
         return recipeList;
     }
