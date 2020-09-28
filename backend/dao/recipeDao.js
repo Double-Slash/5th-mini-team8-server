@@ -10,7 +10,18 @@ async function insertRecipeforFood(r_name, i_name, metering){
     return await mysql.query(insertQuery, [r_name, i_name, metering,r_name, i_name, metering]);
 }
 
+async function selectRecipeListByUser(userId){
+    const selectQuery = `SELECT i.recipe_name, 
+        (SELECT count(*) FROM ingredients_for_food WHERE i.recipe_name = ingredients_for_food.recipe_name) as total,
+        count(*) as my_count
+        FROM user_has_ingredients u JOIN ingredients_for_food i ON u.ingredients_name = i.ingredients_name
+        WHERE u.user_id = ?
+        GROUP BY i.recipe_name`;
+    return await mysql.query(selectQuery, [userId]);
+}
+
 module.exports = {
     insertRecipe,
-    insertRecipeforFood
+    insertRecipeforFood,
+    selectRecipeListByUser
 }

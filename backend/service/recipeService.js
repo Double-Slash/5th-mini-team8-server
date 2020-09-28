@@ -45,7 +45,18 @@ async function insertRecipeforFood(recipeData){
     return cnt;
 }
 
+async function getRecipeList(userId){
+    const recipeList =  recipeDao.selectRecipeListByUser(userId);
+    if(recipeList.length == 0){
+        return -1;
+    }
+    else {
+        return recipeList;
+    }
+}
+
 module.exports = {
     insertRecipe,
-    insertRecipeforFood
+    insertRecipeforFood,
+    getRecipeList
 }
