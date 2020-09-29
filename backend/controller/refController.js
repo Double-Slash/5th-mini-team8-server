@@ -83,7 +83,8 @@ async function getRecipeList(req, res){
         }
         else{
             const recipeList = await recipeService.getRecipeList(userId);
-            if(recipeList == -1){
+            //console.log(recipeList.canMake.length)
+            if(recipeList.notEnough.length < 1){
                 console.log('지금 가진 재료로 만들 수 있는 레시피 찾을 수 없음');
                 errResponse(res, returnCode.BAD_REQUEST, '재료를 더 추가하세요');
             }

@@ -16,12 +16,21 @@ async function selectRecipeListByUser(userId){
         count(*) as my_count
         FROM user_has_ingredients u JOIN ingredients_for_food i ON u.ingredients_name = i.ingredients_name
         WHERE u.user_id = ?
-        GROUP BY i.recipe_name`;
+        GROUP BY i.recipe_name
+        HAVING (my_count/total) * 100 >= 60`;
     return await mysql.query(selectQuery, [userId]);
+}
+
+async function selectRecipeByRecipeName(recipeName){
+    const selectQuery = `SELECT name, imgUrl_big, imgUrl_small, calorie
+                        FROM recipe
+                        WHERE name = ?`;
+    return await mysql.query(selectQuery, [recipeName]);
 }
 
 module.exports = {
     insertRecipe,
     insertRecipeforFood,
-    selectRecipeListByUser
+    selectRecipeListByUser,
+    selectRecipeByRecipeName
 }
