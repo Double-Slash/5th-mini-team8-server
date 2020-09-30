@@ -1,3 +1,4 @@
+const e = require('express');
 const recipeDao = require('../dao/recipeDao');
 
 async function insertRecipe(recipeData){
@@ -45,7 +46,20 @@ async function insertRecipeforFood(recipeData){
     return cnt;
 }
 
+async function getRecipeInfo(recipeName){
+    const recipeData = await recipeDao.selectRecipeByRecipeName(recipeName);
+    console.log(recipeData[0].name);
+    if( recipeData[0].name == null ){
+        return -1;
+    }
+    else{
+        return recipeData;
+    }
+    
+}
+
 module.exports = {
     insertRecipe,
-    insertRecipeforFood
+    insertRecipeforFood,
+    getRecipeInfo
 }
