@@ -3,7 +3,8 @@ const returnCode = require('../library/returnCode');
 
 const userService = require('../service/userService');
 const refService = require('../service/refService');
-const ingredientService = require('../service/ingredientService')
+const ingredientService = require('../service/ingredientService');
+const e = require('express');
 
 async function getref(req, res){
     try{
@@ -70,7 +71,17 @@ async function postIngredient(req, res){
     
 }
 
+async function getRecipeInfo(req, res){
+    try{
+        console.log(req.body);
+    } catch(error){
+        console.log(error.message);
+        errResponse(res, returnCode.INTERNAL_SERVER_ERROR, '서버 오류');
+    }
+}
+
 module.exports = {
     getref,
-    postIngredient
+    postIngredient,
+    getRecipeInfo
 }
