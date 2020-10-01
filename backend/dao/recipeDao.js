@@ -11,7 +11,7 @@ async function insertRecipeforFood(r_name, i_name, metering){
 }
 
 async function selectRecipeByRecipeName(recipeName){
-    const selectQuery = `SELECT r.name, r.howtomake, r.protein, r.natrium, r.fat, group_concat(i.ingredients_name) as ingredients
+    const selectQuery = `SELECT r.name, r.howtomake, r.protein, r.natrium, r.fat, group_concat(i.ingredients_name) as ingredients, group_concat(i.metering) as metering
                         FROM recipe r join ingredients_for_food i ON r.name = i.recipe_name
                         WHERE r.name = ?`;
     return await mysql.query(selectQuery, [recipeName]);
