@@ -31,6 +31,8 @@ async function insertIngredient(ingredients){
             continue;
         }
         const match = await ingredientDao.selectIngredient(name.trim());
+        // 여기서 match가 있으면 count++해주는 식으로 
+        
         //console.log(match.length);
         if(match.length == 0){ // Ingredients 테이블에 없으면
             await ingredientDao.insertIngredient(name);
