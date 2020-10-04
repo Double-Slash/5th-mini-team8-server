@@ -69,7 +69,7 @@ async function getApi(url){
             })
         });
         //myobj.ingredients = splited_ingredients;
-        console.log(splited_ingredients);
+        //console.log(splited_ingredients);
 
         splited_ingredients.forEach(ele => {
             const arr = ele.split(' ');

@@ -3,7 +3,8 @@ const returnCode = require('../library/returnCode');
 
 const userService = require('../service/userService');
 const refService = require('../service/refService');
-const ingredientService = require('../service/ingredientService')
+const ingredientService = require('../service/ingredientService');
+const recipeService = require('../service/recipeService');
 
 async function getref(req, res){
     try{
@@ -57,7 +58,7 @@ async function postIngredient(req, res){
             
             if (userIngredient.length == 0) {
                 console.log('이미 있는 재료들을 추가했습니다');
-                response(res, returnCode.OK, '이미 있는 재료를 추가');
+                errResponse(res, returnCode.BAD_REQUEST, '이미 있는 재료를 추가');
             }
             else {
                 response(res, returnCode.OK, '재료 넣기 성공');
@@ -70,7 +71,36 @@ async function postIngredient(req, res){
     
 }
 
+async function getRecipeList(req, res){
+    try{
+        console.log(req.body.userId);
+        const userId = req.body.userId;
+        const userData = await userService.getUser(userId);
+
+        if(userData == -1){
+            console.log("유저없음");
+            errResponse(res, returnCode.BAD_REQUEST, '유저없음');
+        }
+        else{
+            const recipeList = await recipeService.getRecipeList(userId);
+            //console.log(recipeList.canMake.length)
+            if(recipeList.notEnough.length < 1){
+                console.log('지금 가진 재료로 만들 수 있는 레시피 찾을 수 없음');
+                errResponse(res, returnCode.BAD_REQUEST, '재료를 더 추가하세요');
+            }
+            else{
+                console.log('레시피 조회 성공');
+                response(res, returnCode.OK, '레시피 조회 성공', recipeList);
+            }
+        }
+    } catch(error){
+        console.log(error.message);
+        errResponse(res, returnCode.INTERNAL_SERVER_ERROR, '서버 오류');
+    }
+}
+
 module.exports = {
     getref,
-    postIngredient
+    postIngredient,
+    getRecipeList
 }

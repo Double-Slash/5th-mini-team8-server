@@ -10,7 +10,13 @@ async function selectIngredient(ingredient){
     return await mysql.query(selectQuery, [ingredient]);
 }
 
+async function selectIngredientFromUserHasIngredients(ingredient){
+    const selectQuery = `SELECT ingredients_name FROM user_has_ingredients where ingredients_name = ?`;
+    return await mysql.query(selectQuery, [ingredient]);
+}
+
 module.exports = {
     insertIngredient,
-    selectIngredient
+    selectIngredient,
+    selectIngredientFromUserHasIngredients
 }
