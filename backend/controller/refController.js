@@ -73,6 +73,7 @@ async function postIngredient(req, res){
 
 async function getRecipeInfo(req, res){
     try{
+        // auth 필요.
         console.log(req.body);
         const recipeName = req.body.recipeName;
 
