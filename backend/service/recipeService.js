@@ -48,8 +48,8 @@ async function insertRecipeforFood(recipeData){
 
 async function getRecipeInfo(recipeName){
     const recipeData = await recipeDao.selectRecipeByRecipeName(recipeName);
-    console.log(recipeData[0].name);
-    if( recipeData[0].name == null ){
+    console.log(recipeData[0].recipe_name);
+    if( recipeData[0].recipe_name == null ){
         return -1;
     }
     else{
