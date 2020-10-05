@@ -14,12 +14,12 @@ async function getUser(userId){
 
 // 이미 있는 재료는 넣으면 안됨.
 async function postIngredients(userId, ingredients){
-    console.log(ingredients);
+    //console.log(ingredients);
 
     var dataList = [];
-    for(var i=0; i<ingredients.length; i++){
-        // 인자로 받은 재료중에 ingredients 테이블에 있는지 확인
-        const existIngredient = ingredientDao.selectIngredient(ingredients[i]);
+    for(let i=0; i<ingredients.length; i++){
+        // 인자로 받은 재료중에 user_has_ingredients 테이블에 있는지 확인
+        const existIngredient = await ingredientDao.selectIngredientFromUserHasIngredients(ingredients[i]);
         if(existIngredient.length == 0){ // 없으면
             const data = await userDao.insertIngredientsByUser(userId, ingredients[i]);
             dataList.push(data);

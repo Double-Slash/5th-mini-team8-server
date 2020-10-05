@@ -5,6 +5,7 @@ const refController = require('../controller/refController');
 
 router.get('/', refController.getref);
 router.post('/addIn', refController.postIngredient);
+router.get('/recipelist', refController.getRecipeList);
 
 router.get('/recipeList/recipe', refController.getRecipeInfo);
 
