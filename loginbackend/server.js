@@ -20,4 +20,4 @@ router.get('/', function(req, res) {
 router.post('/register',login.register);
 router.post('/login',login.login)
 app.use('/api', router);
-app.listen(4000);
+app.listen(3000);

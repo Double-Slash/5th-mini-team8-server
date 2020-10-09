@@ -17,14 +17,23 @@ connection.connect(function(err){
 });
 
 exports.register = async function(req,res){
+  var email= req.body.email;
   const password = req.body.password;
-  const encryptedPassword = await bcrypt.hash(password, saltRounds)
-  var users={
+  //회원 정보 미 개입시
+  if(email.length==0 || password.length==0){
+    res.send({
+      "code":400,
+      "failed":"check your email and password"
+    })
+  }
+  //회원 정보 개입 완료
+  else{
+    const encryptedPassword = await bcrypt.hash(password, saltRounds)
+    var users={
      "email":req.body.email,
      "password":encryptedPassword
-  }
-  var email= req.body.email;
-  connection.query('SELECT * FROM users WHERE email = ?',[email],  function (error, results, fields) {
+    }
+    connection.query('SELECT * FROM users WHERE email = ?',[email],  function (error, results, fields) {
     //Query 전송 실패
     if (error) {
       res.send({
@@ -58,7 +67,8 @@ exports.register = async function(req,res){
         });
       }
     }
-  }); 
+    }); 
+  }
 }
 
 exports.login = async function(req,res){
