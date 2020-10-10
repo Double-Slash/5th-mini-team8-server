@@ -1,13 +1,14 @@
 var mysql      = require('mysql');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+const mysqlConfig = require('../config/database');
 
 const {sign} = require('../library/jwt');
 
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
-  password : '123456',
+  password : mysqlConfig,
   database : 'double-slash-8thdb'
 });
 connection.connect(function(err){

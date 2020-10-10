@@ -19,7 +19,7 @@ async function postIngredients(userId, ingredients){
     var dataList = [];
     for(let i=0; i<ingredients.length; i++){
         // 인자로 받은 재료중에 user_has_ingredients 테이블에 있는지 확인
-        const existIngredient = await ingredientDao.selectIngredientFromUserHasIngredients(ingredients[i]);
+        const existIngredient = await ingredientDao.selectIngredientFromUserHasIngredients(userId, ingredients[i]);
         if(existIngredient.length == 0){ // 없으면
             const data = await userDao.insertIngredientsByUser(userId, ingredients[i]);
             dataList.push(data);
@@ -29,7 +29,24 @@ async function postIngredients(userId, ingredients){
     return dataList;
 }
 
+async function deleteIngredients(userId, ingredients){
+    for(let i=0; i<ingredients.length; i++){
+        // 인자로 받은 재료중에 user_has_ingredients 테이블에 있는지 확인
+        const existIngredient = await ingredientDao.selectIngredientFromUserHasIngredients(userId, ingredients[i]);
+        if(existIngredient.length == 0){ // 없으면
+            return -1; // 없는 재료를 삭제하려고 하는 것.
+        }
+        else{
+            // 삭제
+            const deletedData = await ingredientDao.deleteIngredientFromUserHasIngredients(userId, ingredients[i]);
+            //console.log(deletedData);
+        }
+    }
+    return 1;
+}
+
 module.exports = {
     getUser,
-    postIngredients
+    postIngredients,
+    deleteIngredients
 }

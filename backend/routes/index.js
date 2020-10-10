@@ -1,9 +1,12 @@
 var express = require('express');
 var router = express.Router();
 var login = require('./loginroutes');
+const { response, errResponse } = require('../library/response');
+const returnCode = require('../library/returnCode');
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  response(res, returnCode.OK, 'home page' );
 });
 
 router.use('/ref', require('./ref'));

@@ -71,6 +71,37 @@ async function postIngredient(req, res){
     
 }
 
+async function deleteIngredient(req, res){
+    try{
+        console.log(req.body.userId);
+        const userData = await userService.getUser(req.body.userId);
+
+        // 해당하는 유저가 디비에 없으면
+        if (userData == -1) {
+            console.log("유저없음");
+            errResponse(res, returnCode.BAD_REQUEST, '유저없음');
+        }
+        else{
+            console.log(req.body.ingredient);
+            
+            // user_has_ingredients 테이블에 유저가 가진 재료 정보를 저장한다.
+            const userIngredient = await userService.deleteIngredients(req.body.userId, req.body.ingredient);
+            
+            if (userIngredient == -1) {
+                console.log('없는 재료를 삭제하려고 함');
+                errResponse(res, returnCode.BAD_REQUEST, '없는 재료를 삭제하려고 함');
+            }
+            else if(userIngredient == 1){
+                response(res, returnCode.OK, '재료 삭제 성공');
+            }
+        }
+    } catch(error){
+        console.log(error.message);
+        errResponse(res, returnCode.INTERNAL_SERVER_ERROR, '서버 오류');
+    }
+    
+}
+
 async function getRecipeInfo(req, res){
     try{
         // auth 필요.
@@ -122,6 +153,7 @@ async function getRecipeList(req, res){
 module.exports = {
     getref,
     postIngredient,
+    deleteIngredient,
     getRecipeInfo,
     getRecipeList
 }
