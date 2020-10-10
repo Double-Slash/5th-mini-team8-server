@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { jwtConfig } = require('../config/jwt');
+const jwtConfig = require('../config/jwt');
 const { response, errResponse } = require('../library/response');
 const returnCode = require('../library/returnCode');
 
