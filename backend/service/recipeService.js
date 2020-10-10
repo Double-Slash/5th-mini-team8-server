@@ -45,6 +45,17 @@ async function insertRecipeforFood(recipeData){
     return cnt;
 }
 
+async function getRecipeInfo(recipeName){
+    const recipeData = await recipeDao.selectRecipeByRecipeNameUsingJoin(recipeName);
+    console.log(recipeData[0].recipe_name);
+    if( recipeData[0].recipe_name == null ){
+        return -1;
+    }
+    else{
+        return recipeData;
+    }
+}
+
 async function getRecipeList(userId){
     const recipeList =  await recipeDao.selectRecipeListByUser(userId);
     // 조회된 레시피 수
@@ -86,5 +97,6 @@ async function getRecipeList(userId){
 module.exports = {
     insertRecipe,
     insertRecipeforFood,
+    getRecipeInfo,
     getRecipeList
 }
