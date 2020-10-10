@@ -1,12 +1,12 @@
 const mysql = require('../library/mysql');
 
 async function insertIngredient(ingredient){
-    const insertQuery = `INSERT INTO ingredients(name) VALUES (?)`;
+    const insertQuery = `INSERT INTO ingredients(ingredient_name) VALUES (?)`;
     return await mysql.query(insertQuery, [ingredient]);
 }
 
 async function selectIngredient(ingredient){
-    const selectQuery = `SELECT name FROM ingredients where name = ?`;
+    const selectQuery = `SELECT ingredient_name FROM ingredients where ingredient_name = ?`;
     return await mysql.query(selectQuery, [ingredient]);
 }
 

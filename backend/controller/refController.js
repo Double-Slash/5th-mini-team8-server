@@ -71,6 +71,26 @@ async function postIngredient(req, res){
     
 }
 
+async function getRecipeInfo(req, res){
+    try{
+        // auth 필요.
+        console.log(req.body);
+        const recipeName = req.body.recipeName;
+
+        const recipeData = await recipeService.getRecipeInfo(recipeName);
+        if(recipeData == -1){
+            console.log("레시피 없음");
+            errResponse(res, returnCode.BAD_REQUEST, '레시피 없음');
+        }
+        else{
+            response(res, returnCode.OK, '레시피 조회 성공', recipeData);
+        }
+    } catch(error){
+        console.log(error.message);
+        errResponse(res, returnCode.INTERNAL_SERVER_ERROR, '서버 오류');
+    }
+}
+        
 async function getRecipeList(req, res){
     try{
         console.log(req.body.userId);
@@ -102,5 +122,6 @@ async function getRecipeList(req, res){
 module.exports = {
     getref,
     postIngredient,
+    getRecipeInfo,
     getRecipeList
 }
