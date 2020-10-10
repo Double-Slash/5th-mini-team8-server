@@ -10,13 +10,19 @@ async function selectIngredient(ingredient){
     return await mysql.query(selectQuery, [ingredient]);
 }
 
-async function selectIngredientFromUserHasIngredients(ingredient){
-    const selectQuery = `SELECT ingredients_name FROM user_has_ingredients where ingredients_name = ?`;
-    return await mysql.query(selectQuery, [ingredient]);
+async function selectIngredientFromUserHasIngredients(userId, ingredient){
+    const selectQuery = `SELECT ingredients_name FROM user_has_ingredients where user_id = ? and ingredients_name = ?`;
+    return await mysql.query(selectQuery, [userId, ingredient]);
+}
+
+async function deleteIngredientFromUserHasIngredients(userId, ingredient){
+    const deleteQuery = `DELETE FROM user_has_ingredients WHERE user_id = ? and ingredients_name = ?`;
+    return await mysql.query(deleteQuery, [userId, ingredient]);
 }
 
 module.exports = {
     insertIngredient,
     selectIngredient,
-    selectIngredientFromUserHasIngredients
+    selectIngredientFromUserHasIngredients,
+    deleteIngredientFromUserHasIngredients
 }
