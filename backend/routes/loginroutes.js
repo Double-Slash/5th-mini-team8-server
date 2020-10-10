@@ -1,6 +1,9 @@
 var mysql      = require('mysql');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+
+const {sign} = require('../library/jwt');
+
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
@@ -94,7 +97,8 @@ exports.login = async function(req,res){
         if(comparision){
             res.send({
               "code":200,
-              "success":"login sucessfull"
+              "success":"login sucessfull",
+              "token": sign(id)
             })
         }
         //로그인 정보 불일치
