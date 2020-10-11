@@ -1,7 +1,7 @@
 const mysql = require('../library/mysql');
 
 async function insertRecipe(recipeData, recipeText){
-    const insertQuery = `INSERT INTO Recipe(recipe_name, howtomake, imgUrl_big, imgUrl_small, calorie, protein, fat, natrium) VALUES (?,?,?,?,?,?,?,?)`;
+    const insertQuery = `INSERT IGNORE INTO Recipe(recipe_name, howtomake, imgUrl_big, imgUrl_small, calorie, protein, fat, natrium) VALUES (?,?,?,?,?,?,?,?)`;
     return await mysql.query(insertQuery, [recipeData.id, recipeText, recipeData.imgUrl_big, recipeData.imgUrl_small, recipeData.calorie, recipeData.protein, recipeData.fat, recipeData.natrium]);
 }
 

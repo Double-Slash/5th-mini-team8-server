@@ -8,10 +8,10 @@ const recipeService = require('../service/recipeService');
 
 async function getref(req, res){
     try{
-        //const userData = await userService.getUser(req.headers.authorization);
-        const userId = req.body.userId;
+        const userData = await userService.getUser(req.headers.authorization);
+        //const userId = req.body.userId;
         //console.log(userId);
-        const userData = await userService.getUser(userId);
+        //const userData = await userService.getUser(userToken);
 
         // 해당하는 유저가 디비에 없으면
         if(userData == -1){
@@ -20,7 +20,7 @@ async function getref(req, res){
         }
         else{
             console.log(userData);
-            const userIngre = await refService.getUserIngre(userId);
+            const userIngre = await refService.getUserIngre(userData.user_id);
 
             // 해당하는 유저가 재료를 하나도 가지고 있지않다면.
             if(userIngre == -1){
@@ -39,8 +39,9 @@ async function getref(req, res){
 
 async function postIngredient(req, res){
     try{
-        console.log(req.body.userId);
-        const userData = await userService.getUser(req.body.userId);
+        //console.log(req.headers.authorization);
+        const userData = await userService.getUser(req.headers.authorization);
+        //console.log(userData)
 
         // 해당하는 유저가 디비에 없으면
         if (userData == -1) {
@@ -54,7 +55,7 @@ async function postIngredient(req, res){
             await ingredientService.postIngredientIfNotExist(req.body.ingredient);
             
             // user_has_ingredients 테이블에 유저가 가진 재료 정보를 저장한다.
-            const userIngredient = await userService.postIngredients(req.body.userId, req.body.ingredient);
+            const userIngredient = await userService.postIngredients(userData[0].user_id, req.body.ingredient);
             
             if (userIngredient.length == 0) {
                 console.log('이미 있는 재료들을 추가했습니다');

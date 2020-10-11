@@ -1,9 +1,16 @@
 const userDao = require('../dao/userDao');
 const ingredientDao = require('../dao/ingredientDao');
 
+const { verify } = require('../library/jwt');
 
-async function getUser(userId){
-    const userData = await userDao.selectUserByUserId(userId);
+async function getUser(token){
+    const verifiedToken = verify(token);
+    if(verifiedToken < 0) {
+        return -1;
+    }
+    //console.log(verifiedToken.id)
+    const userData = await userDao.selectUserByUserId(verifiedToken.id);
+    //console.log(userData.length)
     if(userData.length == 0){ // 내가 찾는 user_id 가 없으면
         return -1;
     }
