@@ -6,7 +6,7 @@ const { verify } = require('../library/jwt');
 async function getUser(token){
     const verifiedToken = verify(token);
     if(verifiedToken < 0) {
-        return -1;
+        return -2;
     }
     //console.log(verifiedToken.id)
     const userData = await userDao.selectUserByUserId(verifiedToken.id);
