@@ -13,6 +13,19 @@ async function postIngredientIfNotExist(ingredients){
     }
 }
 
+async function searchIngredients(ingredient){
+    //console.log(ingredient);
+    let queryIngredient = '%' + ingredient + '%';
+    const ingredientData = await ingredientDao.selectIngredientWhereContain(queryIngredient);
+    console.log(ingredientData);
+    if(ingredientData.length == 0){
+        return -1;
+    }
+    else{
+        return ingredientData;
+    }
+}
+
 // ingredients 재료들의 배열
 async function insertIngredient(ingredients){
     //console.log(ingredients);
@@ -44,5 +57,6 @@ async function insertIngredient(ingredients){
 
 module.exports = {
     postIngredientIfNotExist,
+    searchIngredients,
     insertIngredient
 }
