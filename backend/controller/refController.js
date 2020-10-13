@@ -41,6 +41,35 @@ async function getref(req, res){
     }
 }
 
+async function searchIngredients(req, res){
+    try{
+        const userData = await userService.getUser(req.headers.authorization);
+
+        if(userData == -1){
+            console.log("유저없음");
+            errResponse(res, returnCode.BAD_REQUEST, '유저없음');
+        }
+        else if(userData == -2){
+            console.log("invalid token");
+            errResponse(res, returnCode.BAD_REQUEST, 'invalid token');
+        }
+        else{
+            console.log(req.body.ingredient);
+            const ingredientData = await ingredientService.searchIngredients(req.body.ingredient);
+
+            if(ingredientData == -1){
+                response(res, returnCode.OK, '재료 없음!');
+            }
+            else {
+                response(res, returnCode.OK, '재료 찾음', ingredientData);
+            }
+        }
+    } catch(error){
+        console.log(error.message);
+        errResponse(res, returnCode.INTERNAL_SERVER_ERROR, '서버 오류');
+    }
+}
+
 async function postIngredient(req, res){
     try{
         //console.log(req.headers.authorization);
@@ -168,6 +197,7 @@ async function getRecipeList(req, res){
 
 module.exports = {
     getref,
+    searchIngredients,
     postIngredient,
     deleteIngredient,
     getRecipeInfo,
