@@ -11,7 +11,7 @@ async function selectIngredient(ingredient){
 }
 
 async function selectIngredientWhereContain(ingredient){
-    const selectQuery = `SELECT ingredient_name FROM ingredients where ingredient_name like ?`;
+    const selectQuery = `SELECT ingredient_name FROM ingredients where ingredient_name like ? order by ingredient_name`;
     return await mysql.query(selectQuery, [ingredient]);
 }
 
