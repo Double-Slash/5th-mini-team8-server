@@ -19,7 +19,7 @@ async function selectRecipeByRecipeNameUsingJoin(recipeName){
 
 async function selectRecipeListByUser(userId){
     const selectQuery = `SELECT i.recipe_name, 
-        (SELECT count(*) FROM Ingredients_for_Food WHERE i.recipe_name = ingredients_for_food.recipe_name) as total,
+        (SELECT count(*) FROM Ingredients_for_Food WHERE i.recipe_name = Ingredients_for_Food.recipe_name) as total,
         count(*) as my_count
         FROM User_has_Ingredients u JOIN Ingredients_for_Food i ON u.ingredients_name = i.ingredients_name
         WHERE u.user_id = ?
