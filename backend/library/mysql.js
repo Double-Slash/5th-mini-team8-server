@@ -8,10 +8,10 @@ async function getMysqlPool() {
         //console.log(mysqlConfig)
         mysqlPool = await mysql.createPool(
             {
-                host     : 'localhost',              // 호스트 주소
+                host     : 'double-slash-mini.cbaqdx5ben6z.ap-northeast-2.rds.amazonaws.com', // 호스트 주소
                 user     : 'root',                   // mysql user
                 password : mysqlConfig,              // mysql password
-                database : 'double-slash-8thdb'      // mysql 데이터베이스
+                database : 'double_slash_mini'      // mysql 데이터베이스
             }
         );
         return mysqlPool;

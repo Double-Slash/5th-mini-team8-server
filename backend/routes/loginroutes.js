@@ -6,17 +6,18 @@ const mysqlConfig = require('../config/database');
 const {sign} = require('../library/jwt');
 
 var connection = mysql.createConnection({
-  host     : 'localhost',
+  host     : 'double-slash-mini.cbaqdx5ben6z.ap-northeast-2.rds.amazonaws.com',
   user     : 'root',
   password : mysqlConfig,
-  database : 'double-slash-8thdb'
+  database : 'double_slash_mini'
 });
 connection.connect(function(err){
 
-  if(!err) {
-    console.log("Database is connected ... nn");
+  if(err) {
+    console.log("Error Database is connected ... nn");
+    console.log(err);
   } else {
-    console.log("Error connecting database ... nn");
+    console.log("connecting database ... nn");
   }
 });
 
