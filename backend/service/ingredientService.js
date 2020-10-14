@@ -48,7 +48,7 @@ async function insertIngredient(ingredients){
         
         //console.log(match.length);
         if(match.length == 0){ // Ingredients 테이블에 없으면
-            await ingredientDao.insertIngredient(name);
+            await ingredientDao.insertIngredient(name.trim());
             cnt++;
         }
     }

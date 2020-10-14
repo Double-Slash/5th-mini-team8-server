@@ -6,17 +6,18 @@ const mysqlConfig = require('../config/database');
 const {sign} = require('../library/jwt');
 
 var connection = mysql.createConnection({
-  host     : 'localhost',
+  host     : 'double-slash-mini.cbaqdx5ben6z.ap-northeast-2.rds.amazonaws.com',
   user     : 'root',
   password : mysqlConfig,
-  database : 'double-slash-8thdb'
+  database : 'double_slash_mini'
 });
 connection.connect(function(err){
 
-  if(!err) {
-    console.log("Database is connected ... nn");
+  if(err) {
+    console.log("Error Database is connected ... nn");
+    console.log(err);
   } else {
-    console.log("Error connecting database ... nn");
+    console.log("connecting database ... nn");
   }
 });
 
@@ -41,7 +42,7 @@ exports.register = async function(req,res){
      "email":req.body.email,
      "name":req.body.name
     }
-    connection.query('SELECT * FROM user WHERE user_id = ?',[id],  function (error, results, fields) {
+    connection.query('SELECT * FROM User WHERE user_id = ?',[id],  function (error, results, fields) {
     //Query 전송 실패
     if (error) {
       res.send({
@@ -57,7 +58,7 @@ exports.register = async function(req,res){
         })
       }
       else{
-        connection.query('INSERT INTO user(user_id, password, email, name) VALUES (?, ?, ?, ?)',[users.id, users.password, users.email, users.name], function (error, results, fields) {
+        connection.query('INSERT INTO User(user_id, password, email, name) VALUES (?, ?, ?, ?)',[users.id, users.password, users.email, users.name], function (error, results, fields) {
           //Query 전송 실패
           if (error) {
             console.log(error)
@@ -83,7 +84,7 @@ exports.register = async function(req,res){
 exports.login = async function(req,res){
   var id= req.body.id;
   var password = req.body.password;
-  connection.query('SELECT * FROM user WHERE user_id = ?',[id], async function (error, results, fields) {
+  connection.query('SELECT * FROM User WHERE user_id = ?',[id], async function (error, results, fields) {
     //Query 전송 실패
     if (error) {
       res.send({

@@ -125,7 +125,9 @@ async function deleteIngredient(req, res){
             errResponse(res, returnCode.BAD_REQUEST, 'invalid token');
         }
         else{
+            //console.log(req.body);
             console.log(req.body.ingredient);
+            //console.log(typeof req.body.ingredient);
             
             // user_has_ingredients 테이블에 유저가 가진 재료 정보를 저장한다.
             const userIngredient = await userService.deleteIngredients(userData[0].user_id, req.body.ingredient);
