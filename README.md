@@ -27,20 +27,20 @@
 ## Workflow
 
 
-![workflow](https://user-images.githubusercontent.com/30704569/69640366-8e377680-10a1-11ea-88d9-b5dfc684fc9d.png)
-
+![workflow](https://user-images.githubusercontent.com/55734369/97807765-240e5500-1ca6-11eb-8b0b-7864c9eb6a08.png)
 
 
 
 ## Architecture
 
-![architecture](https://user-images.githubusercontent.com/30704569/69640437-b030f900-10a1-11ea-9dcb-487420e0019b.png)
+![architecture](https://user-images.githubusercontent.com/55734369/97807765-240e5500-1ca6-11eb-8b0b-7864c9eb6a08.png)
 
 
 
 ## DB ERD
 
-![ERD](https://user-images.githubusercontent.com/30704569/69640400-9db6bf80-10a1-11ea-890a-c8804168e020.png)
+![Double-Slash-8thDB](https://user-images.githubusercontent.com/55734369/97807725-d7c31500-1ca5-11eb-8091-86530f15f473.png)
+
 
 
 
