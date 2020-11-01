@@ -33,13 +33,13 @@
 
 ## Architecture
 
-![architecture]((https://user-images.githubusercontent.com/55734369/97807950-11e0e680-1ca7-11eb-930e-6517899b73b5.png)
+![architecture](https://user-images.githubusercontent.com/55734369/97808018-7d2ab880-1ca7-11eb-94bd-b24952d6c116.png)
 
 
 
 ## DB ERD
 
-![Double-Slash-8thDB](https://user-images.githubusercontent.com/55734369/97807725-d7c31500-1ca5-11eb-8091-86530f15f473.png)
+![ERD](https://user-images.githubusercontent.com/55734369/97807725-d7c31500-1ca5-11eb-8091-86530f15f473.png)
 
 
 
