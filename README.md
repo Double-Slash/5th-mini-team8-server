@@ -33,14 +33,13 @@
 
 ## Architecture
 
-![architecture](https://user-images.githubusercontent.com/55734369/97807765-240e5500-1ca6-11eb-8b0b-7864c9eb6a08.png)
+![architecture]((https://user-images.githubusercontent.com/55734369/97807950-11e0e680-1ca7-11eb-930e-6517899b73b5.png)
 
 
 
 ## DB ERD
 
 ![Double-Slash-8thDB](https://user-images.githubusercontent.com/55734369/97807725-d7c31500-1ca5-11eb-8091-86530f15f473.png)
-
 
 
 
@@ -70,7 +69,7 @@
 
 ## 시작하기
 
-소스 코드는 Windows10 + Visiau Studio Code + Node v11.6.0 + NPM v6.10.1환경에서 제작되었습니다.
+소스 코드는 Windows10 + Visiau Studio Code + Node v14.10.1 + NPM v6.14.8환경에서 제작되었습니다.
 
 * Node.js의 Async/Await 도구를 사용해 (Promise) 비동기 제어를 하고 있습니다.
 
