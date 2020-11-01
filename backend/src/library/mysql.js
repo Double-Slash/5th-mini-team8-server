@@ -1,5 +1,5 @@
 const mysql = require('promise-mysql');
-const mysqlConfig = require('../config/database');
+const mysqlConfig = require('../../config/database');
 
 let mysqlPool;
 

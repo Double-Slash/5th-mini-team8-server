@@ -1,7 +1,7 @@
 var mysql      = require('mysql');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-const mysqlConfig = require('../config/database');
+const mysqlConfig = require('../../config/database');
 
 const {sign} = require('../library/jwt');
 
