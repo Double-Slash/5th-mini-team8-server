@@ -10,7 +10,7 @@
 ![npm_bedge](https://img.shields.io/badge/npm-v6.10.1-blue)
 
 * 프로젝트 기간: 2020.09.05 ~ 2020.10.17
-* [API 문서](https://github.com/kcartoonworld/kcartoonserver/wiki) 
+* [API 문서](https://github.com/Double-Slash/5th-mini-team8-server/wiki) 
 
 
 
